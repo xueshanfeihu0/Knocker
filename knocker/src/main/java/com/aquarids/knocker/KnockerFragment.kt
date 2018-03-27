@@ -11,10 +11,10 @@ abstract class KnockerFragment : Fragment() {
 
     private var mListener: KnockerFragment.FragmentInteractionListener? = null
 
-    abstract val layoutRes: Int
+    abstract fun getLayoutRes(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutRes, container, false)
+        return inflater.inflate(getLayoutRes(), container, false)
     }
 
     override fun onAttach(context: Context?) {
