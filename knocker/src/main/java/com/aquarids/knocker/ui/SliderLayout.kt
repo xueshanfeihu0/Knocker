@@ -59,6 +59,22 @@ class SliderLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
         array.recycle()
     }
 
+    override fun computeScroll() {
+        super.computeScroll()
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.currX, mScroller.currY)
+            postInvalidateOnAnimation()
+        } else {
+            if (!mSlideFinished) {
+                listener?.onSlide(this, mDragDirection, mHasScrolled)
+
+                mDragDirection = NONE
+                mHasScrolled = false
+                mSlideFinished = true
+            }
+        }
+    }
+
     override fun onInterceptTouchEvent(motionEvent: MotionEvent?): Boolean {
         val action = motionEvent?.action ?: return super.onInterceptTouchEvent(motionEvent)
         when (action) {

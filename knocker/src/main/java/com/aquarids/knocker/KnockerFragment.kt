@@ -9,24 +9,24 @@ import android.view.ViewGroup
 
 abstract class KnockerFragment : Fragment() {
 
-    private var mListener: OnFragmentInteractionListener? = null
+    private var mListener: KnockerFragment.FragmentInteractionListener? = null
 
-    abstract fun getLayoutRes(): Int
+    abstract val layoutRes: Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getLayoutRes(), container, false)
+        return inflater.inflate(layoutRes, container, false)
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is FragmentInteractionListener) {
             mListener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement FragmentInteractionListener")
         }
     }
 
-    interface OnFragmentInteractionListener {
+    interface FragmentInteractionListener {
         fun turnOffLocker()
     }
 }

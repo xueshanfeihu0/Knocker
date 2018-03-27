@@ -17,7 +17,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.aquarids.knocker.KnockerActivity" />
+        <activity
+            android:name="com.aquarids.knocker.KnockerActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.aquarids.knocker"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
             android:name="com.aquarids.knocker.KnockerService"

@@ -1,13 +1,16 @@
 package com.aquarids.knocker
 
 import android.content.Context
+import com.aquarids.knocker.observable.BatteryObservable
 import com.aquarids.knocker.observable.HomeKeyObservable
+import com.aquarids.knocker.observable.ScreenObservable
+import com.aquarids.knocker.observable.TimeObservable
 import com.aquarids.knocker.utils.getApplication
 import java.util.*
 
 object KnockerManager {
 
-    private var mFragment: KnockerFragment? = null
+    private var mFragmentClassName = ""
 
     fun monitorHomeKey(observer: Observer) {
         HomeKeyObservable.addObserver(observer)
@@ -18,35 +21,32 @@ object KnockerManager {
     }
 
     fun monitorBattery(observer: Observer) {
-        HomeKeyObservable.addObserver(observer)
+        BatteryObservable.addObserver(observer)
     }
 
     fun freeBattery(observer: Observer) {
-        HomeKeyObservable.deleteObserver(observer)
+        BatteryObservable.deleteObserver(observer)
     }
 
     fun monitorScreen(observer: Observer) {
-        HomeKeyObservable.addObserver(observer)
+        ScreenObservable.addObserver(observer)
     }
 
     fun freeScreen(observer: Observer) {
-        HomeKeyObservable.deleteObserver(observer)
+        ScreenObservable.deleteObserver(observer)
     }
 
     fun monitorTime(observer: Observer) {
-        HomeKeyObservable.addObserver(observer)
+        TimeObservable.addObserver(observer)
     }
 
     fun freeTime(observer: Observer) {
-        HomeKeyObservable.deleteObserver(observer)
+        TimeObservable.deleteObserver(observer)
     }
 
-    fun startKnockerService(frg: KnockerFragment) {
+    fun startKnockerService(frgClassName: String) {
         getApplication()?.let {
-            if (null != mFragment) {
-                mFragment = null
-            }
-            mFragment = frg
+            mFragmentClassName = frgClassName
             KnockerService.start(it)
         }
     }
@@ -54,20 +54,14 @@ object KnockerManager {
     fun stopKnockerService() {
         getApplication()?.let {
             KnockerService.stop(it)
-            mFragment = null
+            mFragmentClassName = ""
         }
     }
 
     fun startKnockerAct(context: Context) {
-        if (null == mFragment) {
+        if (mFragmentClassName.isEmpty()) {
             return
         }
-        mFragment?.let {
-            KnockerActivity.start(context, it)
-        }
-    }
-
-    fun stopKnockerAct() {
-
+        KnockerActivity.start(context, mFragmentClassName)
     }
 }

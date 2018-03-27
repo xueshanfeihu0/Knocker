@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import com.aquarids.knocker.observable.ScreenObservable
 import java.util.*
 
@@ -30,17 +31,19 @@ class KnockerService : Service(), Observer {
 
     override fun onCreate() {
         super.onCreate()
-        ScreenObservable.addObserver(this)
+        KnockerManager.monitorScreen(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        ScreenObservable.deleteObserver(this)
+        KnockerManager.freeScreen(this)
     }
 
     override fun update(observable: Observable?, arg: Any?) {
-        Thread(Runnable {
-            KnockerManager.startKnockerAct(this)
-        }).start()
+        if (arg is ScreenStatus && arg.isScreenOn) {
+            Thread(Runnable {
+                KnockerManager.startKnockerAct(this)
+            }).start()
+        }
     }
 }
