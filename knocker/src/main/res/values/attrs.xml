@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SliderLayout">
+        <attr name="boundary" format="fraction" />
+        <attr name="interpolator" format="reference" />
+        <attr name="direction">
+            <flag name="leftToRight" value="1" />
+            <flag name="rightToLeft" value="2" />
+            <flag name="horizontal" value="3" />
+            <flag name="topToBottom" value="4" />
+            <flag name="bottomToTop" value="8" />
+            <flag name="vertical" value="12" />
+            <flag name="all" value="15" />
+        </attr>
+    </declare-styleable>
+</resources>
