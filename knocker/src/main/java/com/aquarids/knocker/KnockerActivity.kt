@@ -53,7 +53,7 @@ class KnockerActivity : AppCompatActivity(), Observer, KnockerFragment.FragmentI
             val frgInstance = frgClass.newInstance() as KnockerFragment
             val fragmentManager = supportFragmentManager
             val transaction = fragmentManager.beginTransaction()
-            transaction.add(frgInstance, "knocker")
+            transaction.replace(R.id.frg_content, frgInstance)
             transaction.commit()
         } catch (e: Exception) {
             Log.e("knocker", e.message)

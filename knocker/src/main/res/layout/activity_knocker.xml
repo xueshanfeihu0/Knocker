@@ -3,4 +3,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" />
+    android:background="#123"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frg_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.aquarids.knocker.ui.SliderLayout>

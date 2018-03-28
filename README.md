@@ -15,6 +15,9 @@ compile 'com.github.Aquarids:Knocker:0.0.1'
 
 ### Usage
 
+1. make your lock screen fragment extends KnockerFragment
+2. KnockerManager.startKnockerService("your fragment package name")
+
 License
 --------
 
